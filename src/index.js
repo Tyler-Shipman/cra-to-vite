@@ -58,67 +58,67 @@ if (reactFilesConverted) {
   console.log(chalk.green(`✅ Converted ${reactFilesConverted} files`));
 }
 
-/** Update package json and create vite config */
-console.log(chalk.grey("⚙️  Adding vite scripts and config to project"));
+// /** Update package json and create vite config */
+// console.log(chalk.grey("⚙️  Adding vite scripts and config to project"));
 
-const packageInfo = getPackageJSON();
-const rootDirectory = path.dirname(packageInfo.file);
+// const packageInfo = getPackageJSON();
+// const rootDirectory = path.dirname(packageInfo.file);
 
-const packageJSONWithViteScripts = addViteScripts(packageInfo.json);
-fs.writeFileSync(
-  packageInfo.file,
-  JSON.stringify(packageJSONWithViteScripts, null, packageInfo.indent),
-  {
-    encoding: "utf-8",
-  }
-);
+// const packageJSONWithViteScripts = addViteScripts(packageInfo.json);
+// fs.writeFileSync(
+//   packageInfo.file,
+//   JSON.stringify(packageJSONWithViteScripts, null, packageInfo.indent),
+//   {
+//     encoding: "utf-8",
+//   }
+// );
 
-const isReact17 = packageInfo.json.dependencies.react
-  .split(".")[0]
-  .includes("17");
+// const isReact17 = packageInfo.json.dependencies.react
+//   .split(".")[0]
+//   .includes("17");
 
-const viteConfig = getViteConfig(isReact17);
-fs.writeFileSync(
-  `${rootDirectory}/vite.config.js`,
-  viteConfig.content,
-  "utf-8"
-);
+// const viteConfig = getViteConfig(isReact17);
+// fs.writeFileSync(
+//   `${rootDirectory}/vite.config.js`,
+//   viteConfig.content,
+//   "utf-8"
+// );
 
-console.log(chalk.green("⚡️ Created config file for vite"));
+// console.log(chalk.green("⚡️ Created config file for vite"));
 
-/** Update and move index html */
-console.log(chalk.grey("📄 Moving & updating index.html to root"));
+// /** Update and move index html */
+// console.log(chalk.grey("📄 Moving & updating index.html to root"));
 
-const newHTMLPath = `${rootDirectory}/index.html`;
-fs.renameSync(`${rootDirectory}/public/index.html`, newHTMLPath);
+// const newHTMLPath = `${rootDirectory}/index.html`;
+// fs.renameSync(`${rootDirectory}/public/index.html`, newHTMLPath);
 
-const htmlContent = fs.readFileSync(newHTMLPath, "utf-8");
-fs.writeFileSync(newHTMLPath, htmlContent.replace(/%PUBLIC_URL%/g, ""));
+// const htmlContent = fs.readFileSync(newHTMLPath, "utf-8");
+// fs.writeFileSync(newHTMLPath, htmlContent.replace(/%PUBLIC_URL%/g, ""));
 
-/** Install Deps */
-const yarnLockExists = fs.existsSync(`${rootDirectory}/yarn.lock`);
+// /** Install Deps */
+// const yarnLockExists = fs.existsSync(`${rootDirectory}/yarn.lock`);
 
-let installCommand = "";
+// let installCommand = "";
 
-if (yarnLockExists) {
-  installCommand = `yarn add ${viteConfig.dependencies.join(" ")} --dev`;
-} else {
-  installCommand = `npm install ${viteConfig.dependencies.join(
-    " "
-  )} --save-dev`;
-}
+// if (yarnLockExists) {
+//   installCommand = `yarn add ${viteConfig.dependencies.join(" ")} --dev`;
+// } else {
+//   installCommand = `npm install ${viteConfig.dependencies.join(
+//     " "
+//   )} --save-dev`;
+// }
 
-console.log(chalk.grey("📥 Installing dependencies"));
+// console.log(chalk.grey("📥 Installing dependencies"));
 
-execSync(installCommand, {
-  stdio: "inherit",
-});
+// execSync(installCommand, {
+//   stdio: "inherit",
+// });
 
-console.log("\n")
+// console.log("\n")
 
-console.log(
-  chalk.bold.yellowBright("NOTE:"),
-  chalk.yellow(
-    `Add <script type="module" src="YOUR_ENTRY_FILE"></script> to index.html`
-  )
-);
+// console.log(
+//   chalk.bold.yellowBright("NOTE:"),
+//   chalk.yellow(
+//     `Add <script type="module" src="YOUR_ENTRY_FILE"></script> to index.html`
+//   )
+// );
